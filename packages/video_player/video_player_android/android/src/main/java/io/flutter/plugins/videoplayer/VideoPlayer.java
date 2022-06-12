@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 
 final class VideoPlayer {
@@ -68,6 +69,7 @@ final class VideoPlayer {
       String formatHint,
       @NonNull Map<String, String> httpHeaders,
       SSLSocketFactory factory,
+      HostnameVerifier hostnameVerifier,
       VideoPlayerOptions options) {
     this.eventChannel = eventChannel;
     this.textureEntry = textureEntry;
@@ -88,6 +90,7 @@ final class VideoPlayer {
         httpDataSourceFactory.setDefaultRequestProperties(httpHeaders);
       }
       httpDataSourceFactory.setSSLSocketFactory(factory);
+      httpDataSourceFactory.setHostnameVerifier(hostnameVerifier);
       dataSourceFactory = httpDataSourceFactory;
     } else {
       dataSourceFactory = new DefaultDataSource.Factory(context);
